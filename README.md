@@ -7,7 +7,7 @@ JSON formatted data and camera footage for Rangsit City Water Level report data 
 * JSON file URL:
     * `https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/waterlevel.json`
 * Camera footage:
-    * Latest photo: `https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/photos/latest.jpg`
+    * Latest photo: https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/photos/latest.jpg
     * All photos: https://github.com/xerodotc/rangsitcity-waterlevel/tree/main/data/photos
 * Data will be updated every half hour.
 
