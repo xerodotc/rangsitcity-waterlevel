@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"net/http"
 	"os"
+	"time"
 
 	"github.com/xerodotc/rangsitcity-waterlevel/waterlevel"
 )
@@ -12,7 +14,11 @@ const (
 )
 
 func main() {
-	waterLevelDataList, err := waterlevel.GetWaterLevelData()
+	client := &http.Client{
+		Timeout: 30 * time.Second,
+	}
+
+	waterLevelDataList, err := waterlevel.GetWaterLevelDataWithClient(client)
 	if err != nil {
 		panic(err)
 	}
