@@ -45,7 +45,9 @@ func main() {
 		return
 	}
 
-	waterLevelPhotoFile := fmt.Sprintf(waterLevelPhotoFileFormat, time.Now().Format("20060102_150405"))
+	waterLevelPhotoFile := fmt.Sprintf(waterLevelPhotoFileFormat, time.Now().
+		In(time.FixedZone("ICT", 3600*7)).
+		Format("20060102_150405"))
 	fPhoto, err := os.Create(waterLevelPhotoFile)
 	if err != nil {
 		fmt.Printf("cannot save water level photo, skipping: %v\n", err)
