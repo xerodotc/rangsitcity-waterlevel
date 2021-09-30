@@ -3,9 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
-	"path"
 	"time"
 
 	"github.com/xerodotc/rangsitcity-waterlevel/waterlevel"
@@ -62,11 +62,21 @@ func main() {
 
 	fPhoto.Close()
 
-	if err := os.Remove(waterLevelLatestPhotoFile); err != nil {
+	fPhoto, err = os.Open(waterLevelPhotoFile)
+	if err != nil {
 		panic(err)
 	}
 
-	if err := os.Symlink(path.Base(waterLevelPhotoFile), waterLevelLatestPhotoFile); err != nil {
+	defer fPhoto.Close()
+
+	fLatestPhoto, err := os.Create(waterLevelLatestPhotoFile)
+	if err != nil {
+		panic(err)
+	}
+
+	defer fLatestPhoto.Close()
+
+	if _, err := io.Copy(fLatestPhoto, fPhoto); err != nil {
 		panic(err)
 	}
 }
