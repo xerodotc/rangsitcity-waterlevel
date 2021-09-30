@@ -10,6 +10,41 @@ type WaterLevelDataPoint struct {
 
 type WaterLevelStatus int
 
+func (s WaterLevelStatus) String() string {
+	switch s {
+	case WaterLevelStatusGreen:
+		return "green"
+	case WaterLevelStatusYellow:
+		return "yellow"
+	case WaterLevelStatusOrange:
+		return "orange"
+	case WaterLevelStatusRed:
+		return "red"
+	}
+	return ""
+}
+
+func (s WaterLevelStatus) MarshalText() ([]byte, error) {
+	return []byte(s.String()), nil
+}
+
+func (s *WaterLevelStatus) UnmarshalText(text []byte) error {
+	t := string(text)
+	switch t {
+	case "green":
+		*s = WaterLevelStatusGreen
+	case "yellow":
+		*s = WaterLevelStatusYellow
+	case "orange":
+		*s = WaterLevelStatusOrange
+	case "red":
+		*s = WaterLevelStatusRed
+	default:
+		*s = 0
+	}
+	return nil
+}
+
 const (
 	WaterLevelStatusGreen  WaterLevelStatus = 1
 	WaterLevelStatusYellow WaterLevelStatus = 2
