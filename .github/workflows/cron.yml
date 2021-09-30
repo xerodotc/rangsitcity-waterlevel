@@ -28,8 +28,8 @@ jobs:
       - name: Commit new JSON data
         continue-on-error: true
         run: |
-          git config user.email "github-actions@vi.satou.ch"
-          git config user.name "GitHub Actions"
+          git config user.email "xerodotc@users.noreply.github.com"
+          git config user.name "github-actions"
           git add ./data/waterlevel.json
           git commit -m "update waterlevel.json @ $(TZ=Asia/Bangkok date)"
           git push origin main
