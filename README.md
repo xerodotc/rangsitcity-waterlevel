@@ -5,6 +5,7 @@ JSON formatted data and camera footages for Rangsit City Water Level report data
 ## Disclaimers
 
 This project is **NOT** related **NOR** affiliated with Rangsit City Municipality.
+
 โปรเจคนี้ **ไม่มี** ความเกี่ยวข้องใด ๆ กับเทศบาลนครรังสิต
 
 ## Usage
