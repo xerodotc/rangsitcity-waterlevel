@@ -1,7 +1,11 @@
 package waterlevel
 
 import (
+	"bytes"
 	"errors"
+	"io"
+	"mime"
+	"mime/multipart"
 	"net/http"
 	"path/filepath"
 	"strconv"
@@ -9,16 +13,20 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/icholy/digest"
 )
 
-const url = "http://rangsit.org/waterlevel/"
+const (
+	dataURL  = "http://rangsit.org/waterlevel/"
+	photoURL = "http://rangsitcity.ddns.net:1029/stw-cgi/video.cgi?msubmenu=stream&action=view&Profile=1"
+)
 
 func GetWaterLevelData() ([]WaterLevelDataPoint, error) {
 	return GetWaterLevelDataWithClient(http.DefaultClient)
 }
 
 func GetWaterLevelDataWithClient(client *http.Client) ([]WaterLevelDataPoint, error) {
-	resp, err := client.Get(url)
+	resp, err := client.Get(dataURL)
 	if err != nil {
 		return nil, err
 	}
@@ -70,4 +78,104 @@ func GetWaterLevelDataWithClient(client *http.Client) ([]WaterLevelDataPoint, er
 	}
 
 	return waterLevelDataList, nil
+}
+
+func GetWaterLevelPhoto() ([]byte, error) {
+	return GetWaterLevelPhotoWithClient(http.DefaultClient)
+}
+
+func GetWaterLevelPhotoWithClient(client *http.Client) ([]byte, error) {
+	req, err := http.NewRequest(http.MethodGet, photoURL, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode == http.StatusOK {
+		return parseJPEGStreaming(resp)
+	} else if resp.StatusCode != http.StatusUnauthorized {
+		return nil, errors.New("status code " + resp.Status)
+	}
+
+	wwwAuthenticate := resp.Header.Get("WWW-Authenticate")
+	chal, err := digest.ParseChallenge(wwwAuthenticate)
+	if err != nil {
+		return nil, err
+	}
+
+	cred, err := digest.Digest(chal, digest.Options{
+		Username: "guest",
+		Password: "guest",
+		Method:   req.Method,
+		URI:      req.URL.RequestURI(),
+		Count:    1,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Authorization", cred.String())
+
+	resp, err = client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, errors.New("status code " + resp.Status)
+	}
+
+	return parseJPEGStreaming(resp)
+}
+
+func parseJPEGStreaming(resp *http.Response) ([]byte, error) {
+	mediaType, params, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+	if err != nil {
+		return nil, err
+	}
+
+	if !strings.HasPrefix(mediaType, "multipart/") {
+		return io.ReadAll(resp.Body)
+	}
+
+	boundary, ok := params["boundary"]
+	if !ok {
+		return nil, errors.New("no boundary params")
+	}
+
+	multipartReader := multipart.NewReader(resp.Body, boundary)
+	defer resp.Body.Close()
+
+	part, err := multipartReader.NextPart()
+	if err != nil {
+		return nil, err
+	}
+
+	defer part.Close()
+
+	partContentType := part.Header.Get("Content-Type")
+	if partContentType != "image/jpeg" {
+		return nil, errors.New("wrong content type: got " + partContentType)
+	}
+
+	var buffer bytes.Buffer
+	var smallBuffer [1024]byte
+
+	_, partErr := part.Read(smallBuffer[:])
+	for partErr == nil {
+		_, err := buffer.Write(smallBuffer[:])
+		if err != nil {
+			return nil, err
+		}
+		_, partErr = part.Read(smallBuffer[:])
+	}
+	if partErr != io.EOF {
+		return nil, partErr
+	}
+
+	return buffer.Bytes(), nil
 }

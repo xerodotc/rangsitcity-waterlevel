@@ -1,14 +1,15 @@
 # Machine-readable Rangsit City Water Level Report
 
-JSON formatted data for Rangsit City Water Level report data obtained from http://rangsit.org/waterlevel/.
+JSON formatted data and  for Rangsit City Water Level report data obtained from http://rangsit.org/waterlevel/.
 
 ## Usage
 
-* JSON file URL
+* JSON file URL:
     * `https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/waterlevel.json`
-* Data will be updated daily at these time range every half hour:
-    * 7:05 - 10:35
-    * 15:05 - 18:35
+* Camera footage:
+    * Latest photo: `https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/photos/latest.jpg`
+    * All photos: https://github.com/xerodotc/rangsitcity-waterlevel/tree/main/data/photos
+* Data will be updated every half hour.
 
 ### Data format
 
