@@ -2,7 +2,7 @@
 
 JSON formatted data and camera footage for Rangsit City Water Level report data obtained from http://rangsit.org/waterlevel/.
 
-## Disclamers
+## Disclaimers
 
 This project is NOT related to NOR affiliated with Rangsit City Municipality.
 
