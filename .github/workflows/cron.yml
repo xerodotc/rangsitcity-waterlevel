@@ -4,7 +4,7 @@ name: Update data
 
 on:
   schedule:
-    - cron: "0 0,1,2,3,8,9,10,11 * * *" # 7,8,9,10,15,16,17,18 in ICT
+    - cron: "5,35 0,1,2,3,8,9,10,11 * * *" # 5,35 7,8,9,10,15,16,17,18 * * * in ICT
 
   workflow_dispatch: {}
 
