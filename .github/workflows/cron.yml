@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Run update job
+name: Update data
 
 on:
   schedule:
@@ -9,7 +9,9 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  build:
+  cron:
+    name: "Update data"
+
     runs-on: ubuntu-20.04
 
     steps:
@@ -25,6 +27,8 @@ jobs:
 
       - name: Commit new JSON data
         run: |
+          git config user.email "github-actions@vi.satou.ch"
+          git config user.name "GitHub Actions"
           git add ./data/waterlevel.json
           git commit -m "update waterlevel.json at $(date)"
           git push origin main
