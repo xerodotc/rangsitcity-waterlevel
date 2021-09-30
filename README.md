@@ -1,6 +1,6 @@
 # Machine-readable Rangsit City Water Level Report
 
-JSON formatted data and  for Rangsit City Water Level report data obtained from http://rangsit.org/waterlevel/.
+JSON formatted data and camera footage for Rangsit City Water Level report data obtained from http://rangsit.org/waterlevel/.
 
 ## Usage
 
