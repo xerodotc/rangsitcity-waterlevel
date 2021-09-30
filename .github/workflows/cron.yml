@@ -31,5 +31,5 @@ jobs:
           git config user.email "github-actions@vi.satou.ch"
           git config user.name "GitHub Actions"
           git add ./data/waterlevel.json
-          git commit -m "update waterlevel.json at $(date)"
+          git commit -m "update waterlevel.json @ $(TZ=Asia/Bangkok date)"
           git push origin main
