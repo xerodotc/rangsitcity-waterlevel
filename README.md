@@ -11,7 +11,8 @@ This project is **NOT** related **NOR** affiliated with Rangsit City Municipalit
 ## Usage
 
 * JSON file URL:
-    * `https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/waterlevel.json`
+    * Latest data:  `https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/waterlevel-latest.json`
+    * Histroical data: `https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/waterlevel.json`
 * Camera footages:
     * Latest photo: https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/photos/latest.jpg
     * All photos: https://github.com/xerodotc/rangsitcity-waterlevel/tree/main/data/photos
@@ -19,7 +20,16 @@ This project is **NOT** related **NOR** affiliated with Rangsit City Municipalit
 
 ### Data format
 
-JSON file contains an array of data points similar to these:
+For latest data JSON file contains a data point similar to these:
+```json
+{
+    "water_level_cm": 110,
+    "status": "green",
+    "record_time": "2021-09-27T08:00:00+07:00"
+}
+```
+
+For historical data JSON file contains an array of data points similar to these:
 ```json
 [
     {

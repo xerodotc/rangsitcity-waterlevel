@@ -12,6 +12,7 @@ import (
 )
 
 const (
+	waterLevelLatestJSONFile  = "./data/waterlevel-latest.json"
 	waterLevelJSONFile        = "./data/waterlevel.json"
 	waterLevelLatestPhotoFile = "./data/photos/latest.jpg"
 	waterLevelPhotoFileFormat = "./data/photos/%s.jpg"
@@ -34,6 +35,18 @@ func main() {
 
 	defer fJSON.Close()
 	if err := json.NewEncoder(fJSON).Encode(waterLevelDataList); err != nil {
+		panic(err)
+	}
+
+	fJSON.Close()
+
+	fJSON, err = os.Create(waterLevelLatestJSONFile)
+	if err != nil {
+		panic(err)
+	}
+
+	defer fJSON.Close()
+	if err := json.NewEncoder(fJSON).Encode(waterLevelDataList[len(waterLevelDataList)-1]); err != nil {
 		panic(err)
 	}
 
