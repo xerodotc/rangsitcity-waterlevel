@@ -12,7 +12,7 @@ This project is **NOT** related **NOR** affiliated with Rangsit City Municipalit
 
 * JSON file URL:
     * Latest data:  `https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/waterlevel-latest.json`
-    * Histroical data: `https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/waterlevel.json`
+    * Historical data: `https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/waterlevel.json`
 * Camera footages:
     * Latest photo: https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/photos/latest.jpg
     * All photos: https://github.com/xerodotc/rangsitcity-waterlevel/tree/main/data/photos
@@ -50,4 +50,4 @@ For each data point, there are fields in the object, which are:
 * `status`: Flag status, can be `green`, `yellow`, `orange`, `red`.
 * `record_time`: Data point recorded time in RFC3339 format.
 
-Data points are ordered from oldest to newest data point.
+Data points in historical data are ordered from oldest to newest data point.
