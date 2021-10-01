@@ -1,12 +1,18 @@
 # Machine-readable Rangsit City Water Level Report
 
-JSON formatted data and camera footage for Rangsit City Water Level report data obtained from http://rangsit.org/waterlevel/.
+JSON formatted data and camera footages for Rangsit City Water Level report data obtained from http://rangsit.org/waterlevel/.
+
+## Disclaimers
+
+This project is **NOT** related **NOR** affiliated with Rangsit City Municipality.
+
+โปรเจคนี้ **ไม่มี** ความเกี่ยวข้องใด ๆ กับเทศบาลนครรังสิต
 
 ## Usage
 
 * JSON file URL:
     * `https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/waterlevel.json`
-* Camera footage:
+* Camera footages:
     * Latest photo: https://raw.githubusercontent.com/xerodotc/rangsitcity-waterlevel/main/data/photos/latest.jpg
     * All photos: https://github.com/xerodotc/rangsitcity-waterlevel/tree/main/data/photos
 * Data will be updated every 3 hours.
